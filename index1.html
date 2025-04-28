@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./style1.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DynaPuff:wght@400..700&family=Poiret+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Calorie Calculator</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="excersize.html">Fit Zone</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="search-bar-container">
+    <form id="nav-search-form" role="search" onsubmit="return false;">
+      <input id="nav-search-input" class="form-control" type="search" placeholder="Enter a food to see its nutritional values...">
+      <button class="btn btn-primary" type="submit">🔍</button>
+    </form>
+  </div>
+
+  <div id="search-result" class="container mt-3"></div>
+
+  <div class="input-take container mt-5">
+    <h2 class="cal">Calorie Calculator</h2>
+    <p>
+      This calorie calculator estimates your daily calorie needs based on factors like age, gender, weight, height, and activity level.
+    </p>
+    <form id="calorieForm">
+      <table class="table">
+        <tr>
+          <td>
+            <label for="age">Age:</label>
+            <input type="number" id="age" min="1" max="200" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Gender:</label><br>
+            <div class="gender-container">
+              <div class="gender-option">
+                <input type="radio" id="Male" name="gender" value="Male">
+                <label for="Male">Male</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="Female" name="gender" value="Female">
+                <label for="Female">Female</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="height-unit"><strong>Height:</strong></label>
+            <select id="height-unit">
+              <option value="cm">Centimeters (cm)</option>
+              <option value="ftin">Feet/Inches</option>
+            </select>
+
+            <div id="height-cm" style="display: block;">
+              <input type="number" id="height-cm-input" placeholder="height in Centimeters" />
+            </div>
+
+            <div id="height-ft-in" style="display: none;">
+              <input type="number" id="height-ft" placeholder="Feet" />
+              <input type="number" id="height-in" placeholder="Inches" />
+            </div>
+
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="goal">Goal:</label>
+            <select id="goal" class="form-control">
+              <option value="maintain">Maintain Weight </option>
+              <option value="loss">Weight Loss(0.5Kg/week)</option>
+              <option value="extreme-loss">Extreme Weight Loss(1kg/week)</option>
+              <option value="gain">Weight Gain(0.5kg/week)</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="Dropdown">Activity Level:</label>
+            <select id="Dropdown" class="form-control">
+              <option value="option1">No Exercise</option>
+              <option value="option2">Light: 1-3 days/week</option>
+              <option value="option3">Moderate: 4-5 days/week</option>
+              <option value="option4">Active: Daily exercise</option>
+            </select>
+          </td>
+        </tr>
+        <td>
+          <button type="button" id="calculate-btn" class="btn btn-primary">Calculate</button>
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <button type="reset" id="calculate-btn" class="btn btn-primary">Reset</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div id="calorie-result" class="mt-3"></div>
+    <div class="container mt-5">
+      <h3>Track Your Calories</h3>
+      <input type="text" id="food-name" placeholder="Food Item (e.g., Banana, Rice)" class="form-control mb-2">
+      <input type="number" id="food-calories" placeholder="Servings (e.g., 1, 2, 3)" class="form-control mb-2">
+      <button id="add-food" class="btn btn-success" disabled style="background-color: rgb(0, 106, 255);">Add Food</button>
+      <ul id="food-list" class="list-group mt-3"></ul>
+      <p id="total-calories" class="mt-2"></p>
+    </div>
+  </div>
+  <div class="info">
+    <div class="chart">
+      <img src="activity.jpg" class="active">
+      <div class="chart-content">
+        <p>
+          Calories are a measure of the energy that foods provide to the body. Different foods contain varying amounts of calories depending on their composition. Understanding the calorie content of different foods is essential for managing your energy intake and achieving your health and fitness goals.
+        </p>
+  
+        <div class="table-container">
+          <table border="3" class="excercise">
+            <tr>
+              <th>Exercise</th>
+              <th>Calories Burned (per 30 min)</th>
+            </tr>
+            <tr>
+              <td>
+                Running (6 mph)
+                <img src="https://cdn-icons-png.flaticon.com/128/2615/2615478.png" alt="Running Icon" width="30" height="30">
+              </td>
+              <td>300-400</td>
+            </tr>
+            <tr>
+              <td>
+                Swimming
+                <img src="https://cdn-icons-png.flaticon.com/128/3144/3144982.png" loading="lazy" alt="Swimming " title="Swimming " width="30" height="30">
+              </td>
+              <td>200-300</td>
+            </tr>
+            <tr>
+              <td>
+                Cycling (moderate pace)
+                <img src="https://cdn-icons-png.flaticon.com/128/6669/6669821.png" loading="lazy" alt="Cycling " title="Cycling " width="30" height="30">
+              </td>
+              <td>240-355</td>
+            </tr>
+            <tr>
+              <td>
+                Jumping Rope
+                <img src="https://cdn-icons-png.flaticon.com/128/2996/2996787.png" loading="lazy" alt="Jump rope " title="Jump rope " width="30" height="30">
+              </td>
+              <td>300-400</td>
+            </tr>
+            <tr>
+              <td>
+                Weightlifting (moderate intensity)
+                <img src="https://cdn-icons-png.flaticon.com/128/17639/17639470.png" loading="lazy" alt="Weightlifting " title="Weightlifting " width="35" height="35">
+              </td>
+              <td>90-130</td>
+            </tr>
+            <tr>
+              <td>
+                Yoga
+                <img src="https://cdn-icons-png.flaticon.com/128/10657/10657241.png" loading="lazy" alt="Yoga " title="Yoga " width="30" height="30">
+              </td>
+              <td>150-250</td>
+            </tr>
+            <tr>
+              <td>
+                Walking (4 mph)
+                <img src="https://cdn-icons-png.flaticon.com/128/8403/8403770.png" loading="lazy" alt="Walk " title="Walk " width="30" height="30">
+              </td>
+              <td>150-200</td>
+            </tr>
+            <tr>
+              <td>
+                Football
+                <img src="https://cdn-icons-png.flaticon.com/128/7711/7711863.png" loading="lazy" alt="Soccer player " title="Soccer player " width="30" height="30">
+              </td>
+              <td>200-300</td>
+            </tr>
+            <tr>
+              <td>
+                Basketball
+                <img src="https://cdn-icons-png.flaticon.com/128/3055/3055795.png" loading="lazy" alt="Basketball " title="Basketball " width="30" height="30">
+              </td>
+              <td>250-400</td>
+            </tr>
+            <tr>
+              <td>
+                Tennis
+                <img src="https://cdn-icons-png.flaticon.com/128/7698/7698826.png" loading="lazy" alt="Tennis player " title="Tennis player " width="30" height="30">
+              </td>
+              <td>200-300</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>  
+    <div class="diet">
+      <img src="food.jpg">
+      <h2>Healthy Diet</h2>
+      <p>A healthy diet provides essential nutrients to your body, promoting overall health and reducing the risk of chronic diseases. Here are some key components:</p>
+      <ul>
+        <li><strong>Fruits and Vegetables:</strong> Rich in vitamins, minerals, and fiber.</li>
+        <li><strong>Whole Grains:</strong> Oats, quinoa, and brown rice support digestion and energy levels.</li>
+        <li><strong>Lean Proteins:</strong> Chicken, fish, legumes, and tofu help with muscle growth and repair.</li>
+        <li><strong>Healthy Fats:</strong> Sources like avocado, olive oil, and nuts improve heart and brain health.</li>
+        <li><strong>Hydration:</strong> Drinking plenty of water to stay hydrated and support bodily functions.</li>
+        <li><strong>Limited Processed Foods:</strong> Reducing processed and sugary snacks for better overall health.</li>
+      </ul>
+      <h2>Unhealthy Diet</h2>
+      <p>An unhealthy diet is typically high in calories, added sugars, unhealthy fats, and processed foods. Here are the key characteristics:</p>
+      <ul>
+        <li><strong>Excessive Refined Sugars:</strong> Found in sweets, sodas, and many packaged snacks.</li>
+        <li><strong>High in Trans and Saturated Fats:</strong> Fried foods, fast food, and packaged snacks can harm heart health.</li>
+        <li><strong>Overprocessed Foods:</strong> White bread, sugary cereals, and pre-packaged meals.</li>
+        <li><strong>Low in Nutrients:</strong> Lack of fruits, vegetables, and whole grains.</li>
+        <li><strong>Excessive Salt:</strong> High-sodium foods like canned soups and salty snacks.</li>
+      </ul>
+    </div>
+  </div>
+  <script src="script1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
